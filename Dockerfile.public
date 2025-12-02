@@ -1,0 +1,30 @@
+FROM golang:1.21-alpine AS builder
+
+WORKDIR /app
+
+# Copy go mod files
+COPY go-public-api/go.mod go-public-api/go.sum ./
+RUN go mod download
+
+# Copy source code
+COPY go-public-api/ .
+
+# Build the application
+RUN go build -o public-api cmd/server/main.go
+
+# Final stage
+FROM alpine:latest
+
+WORKDIR /app
+
+# Install ca-certificates and wget for healthcheck
+RUN apk --no-cache add ca-certificates wget
+
+# Copy binary from builder
+COPY --from=builder /app/public-api .
+
+# Expose the service port
+EXPOSE 8000
+
+# Run the service
+CMD ["./public-api", "--port=8000", "--listing-service=http://listing-service:6000", "--user-service=http://user-service:7000", "--debug=true"]

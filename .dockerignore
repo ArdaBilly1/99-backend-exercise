@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Environment
+env/
+.env
+.venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Go
+go-user-service/bin/
+go-public-api/bin/
+*.test
+*.out
+
+# Databases (will be created in containers)
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test scripts (not needed in containers)
+*/test-api.sh
+test-api.sh
+
+# Docker
+Dockerfile*
+docker-compose.yml
+
+# Logs
+*.log
