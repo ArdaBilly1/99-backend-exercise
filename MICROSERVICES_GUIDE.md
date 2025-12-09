@@ -54,31 +54,6 @@ This guide explains how to run the complete microservices architecture for the p
 
 ## Running All Services
 
-### Method 1: Using Docker (Recommended)
-
-The easiest way to run all services is using Docker:
-
-```bash
-# Quick start (uses the helper script)
-./start-services.sh
-
-# Or manually with docker-compose
-docker-compose up -d --build
-
-# Check status
-docker-compose ps
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
-
-See [DOCKER_GUIDE.md](DOCKER_GUIDE.md) for complete Docker documentation.
-
-### Method 2: Using Multiple Terminals (Local Development)
-
 **Terminal 1 - Listing Service:**
 ```bash
 # Activate Python virtual environment (if not already active)
