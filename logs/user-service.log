@@ -1,0 +1,5 @@
+2025/12/09 15:38:34 Starting user service in DEBUG mode on :7000
+2025/12/09 15:38:34 Database path: users.db
+2025/12/09 15:38:34 Listing Service URL: http://localhost:6000
+2025/12/09 15:38:34 Server failed: listen tcp :7000: bind: address already in use
+exit status 1

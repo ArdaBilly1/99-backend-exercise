@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,19 +8,21 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/ucups/go-user-service/internal/config"
 	"github.com/ucups/go-user-service/internal/handler"
 	"github.com/ucups/go-user-service/internal/repository/sqlite"
 	"github.com/ucups/go-user-service/internal/usecase"
 )
 
 func main() {
-	// Parse command-line flags
-	port := flag.Int("port", 7000, "server port")
-	debug := flag.Bool("debug", true, "debug mode")
-	flag.Parse()
+	// Load configuration
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
 
 	// Initialize repository layer
-	repo, err := sqlite.NewUserRepository("users.db")
+	repo, err := sqlite.NewUserRepository(cfg.DB.Path)
 	if err != nil {
 		log.Fatalf("Failed to initialize repository: %v", err)
 	}
@@ -34,9 +35,11 @@ func main() {
 	mux := handler.SetupRoutes(userUseCase)
 
 	// Start server
-	addr := fmt.Sprintf(":%d", *port)
-	if *debug {
+	addr := fmt.Sprintf(":%d", cfg.Server.Port)
+	if cfg.Server.Debug {
 		log.Printf("Starting user service in DEBUG mode on %s", addr)
+		log.Printf("Database path: %s", cfg.DB.Path)
+		log.Printf("Listing Service URL: %s", cfg.Services.ListingServiceURL)
 	} else {
 		log.Printf("Starting user service on %s", addr)
 	}

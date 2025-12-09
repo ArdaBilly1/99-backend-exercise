@@ -1,0 +1,2 @@
+[I 251209 15:38:31 listing_service:204] Starting listing service. PORT: 6000, DEBUG: True
+[I 251209 15:38:40 web:2407] 200 GET /listings/ping (::1) 0.92ms

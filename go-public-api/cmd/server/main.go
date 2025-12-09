@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,30 +9,30 @@ import (
 	"syscall"
 
 	"github.com/ucups/go-public-api/internal/client"
+	"github.com/ucups/go-public-api/internal/config"
 	"github.com/ucups/go-public-api/internal/handler"
 )
 
 func main() {
-	// Parse command-line flags
-	port := flag.Int("port", 8000, "server port")
-	debug := flag.Bool("debug", true, "debug mode")
-	listingServiceURL := flag.String("listing-service", "http://localhost:6000", "listing service URL")
-	userServiceURL := flag.String("user-service", "http://localhost:7000", "user service URL")
-	flag.Parse()
+	// Load configuration
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
 
 	// Initialize service clients
-	listingClient := client.NewListingClient(*listingServiceURL)
-	userClient := client.NewUserClient(*userServiceURL)
+	listingClient := client.NewListingClient(cfg.Services.ListingServiceURL)
+	userClient := client.NewUserClient(cfg.Services.UserServiceURL)
 
 	// Setup routes
 	mux := handler.SetupRoutes(listingClient, userClient)
 
 	// Start server
-	addr := fmt.Sprintf(":%d", *port)
-	if *debug {
+	addr := fmt.Sprintf(":%d", cfg.Server.Port)
+	if cfg.Server.Debug {
 		log.Printf("Starting public API in DEBUG mode on %s", addr)
-		log.Printf("Listing Service: %s", *listingServiceURL)
-		log.Printf("User Service: %s", *userServiceURL)
+		log.Printf("Listing Service: %s", cfg.Services.ListingServiceURL)
+		log.Printf("User Service: %s", cfg.Services.UserServiceURL)
 	} else {
 		log.Printf("Starting public API on %s", addr)
 	}
