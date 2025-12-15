@@ -1,7 +1,3 @@
-# Go Public API
-
-The external-facing API gateway for the property rental/sales platform. This service aggregates data from the listing and user services to provide enriched responses to external clients.
-
 ## Architecture
 
 This service acts as an API Gateway that:
