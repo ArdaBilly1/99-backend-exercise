@@ -1,6 +1,6 @@
 # Go Public API
 
-percobaan kembali lah anjay
+percobaan kembali lah anjay, yuk bisa yussss
 
 ## Architecture
 
