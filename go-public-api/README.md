@@ -1,6 +1,6 @@
-# Go Public AP
+# Go Public API
 
-percobaan mengubah readme uhuy
+percobaan kembali lah anjay
 
 ## Architecture
 
