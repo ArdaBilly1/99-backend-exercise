@@ -17,7 +17,7 @@ This service acts as an API Gateway that:
 - **Protocol Translation**: Accepts JSON from clients, communicates with services using form-encoded requests
 - **Data Enrichment**: Embeds user information within listing responses
 
-## Technology Stack
+## Technology Stack Test
 
 - **Language**: Go 1.21+
 - **HTTP Framework**: net/http with gorilla/mux for routing
